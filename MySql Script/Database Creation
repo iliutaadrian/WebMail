@@ -1,0 +1,49 @@
+CREATE TABLE email
+(
+  id_mail      INT AUTO_INCREMENT
+    PRIMARY KEY,
+  key_mail     VARCHAR(30)  NOT NULL,
+  id_sender    INT          NOT NULL,
+  id_receiver  INT          NOT NULL,
+  date_send    VARCHAR(255) NULL,
+  subject_mail VARCHAR(255) NULL,
+  body_mail    VARCHAR(255) NULL,
+  CONSTRAINT email_id_mail_uindex
+  UNIQUE (id_mail)
+)
+  ENGINE = MyISAM;
+
+CREATE TABLE hibernate_sequence
+(
+  next_val BIGINT NULL
+)
+  ENGINE = MyISAM;
+
+CREATE TABLE users
+(
+  id_user          BIGINT AUTO_INCREMENT
+    PRIMARY KEY,
+  key_user         VARCHAR(255) NULL,
+  adress_account   VARCHAR(255) NULL,
+  password_account VARCHAR(500) NULL,
+  first_name       VARCHAR(255) NULL,
+  last_name        VARCHAR(255) NULL,
+  phone_number     VARCHAR(255) NULL,
+  lucky_number     INT          NULL,
+  CONSTRAINT users_id_user_uindex
+  UNIQUE (id_user)
+)
+  ENGINE = MyISAM;
+
+CREATE PROCEDURE decrypted(IN text VARCHAR(50000), IN cryptKey VARCHAR(30), OUT decoded VARCHAR(50000))
+  BEGIN
+    SELECT DECODE(text, cryptKey)
+    INTO decoded;
+  END;
+
+CREATE PROCEDURE encrypted(IN text VARCHAR(50000), IN cryptKey VARCHAR(30), OUT encoded VARCHAR(50000))
+  BEGIN
+    SELECT ENCODE(text, cryptKey)
+    INTO encoded;
+  END;
+
